@@ -25,8 +25,8 @@ export class BarGraph extends Node {
     @signal()
     public declare readonly title: SimpleSignal<string, this>;
 
-    bars:Bar[];
-    public declare scoreColor:SimpleSignal<string,this>;
+    private bars:Bar[];
+    private scoreColor:SimpleSignal<string,this>;
 
     public constructor(props?: BarGraphProps) {
         super({
@@ -87,9 +87,14 @@ export class BarGraph extends Node {
     {
         console.log("Beginning BarGraph animate");
         yield* all(
-            chain(
-                this.bars.map(x=>x.animate()),
-            ),
+            yield* this.bars.map(x=>x.animate()),
+            // chain(
+            //     run(function*(){
+                    
+            //         console.log("Test");
+            //         //this.bars.map(x=>x.animate());
+            //     }),
+            // ),
         );
         // this.bars.forEach(function(bar){
         //     yield* bar.animate();

@@ -9,7 +9,7 @@ import Test from './scenes/Test?scene';
 //import example from './scenes/GamingPC?scene';
 
 export default makeProject({
-  scenes: [Test],//[Diagram, Results],
+  scenes: [Results],//[Diagram, Results],
   background: '#141414',
   size: new Vector2(3840,2160)
 });
