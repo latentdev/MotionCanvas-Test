@@ -1,0 +1,5 @@
+@font-face {
+    font-family: 'IntelOne Display Regular';
+    src: local('IntelOne Display Regular'),
+      url(public/fonts/intelone-display-regular.ttf) format('truetype');
+  }
