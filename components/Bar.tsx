@@ -1,4 +1,4 @@
-import {Circle, Node, NodeProps, Rect, Text, Line} from '@motion-canvas/2d/lib/components';
+import {Circle, Node, NodeProps, Rect, Text, Line, Layout} from '@motion-canvas/2d/lib/components';
 import {colorSignal, initial, signal} from '@motion-canvas/2d/lib/decorators';
 import {
     createSignal,
@@ -56,45 +56,46 @@ export class Bar extends Node {
         });
 
         this.currentDisplayValue = createSignal(0);
-        this.currentHeightValue = createSignal(0);
+        this.currentHeightValue = createSignal(this.barHeight());
 
         this.barHeightFactor = this.barHeight()/this.max();
 
         this.add(
-            <Rect>
+            <Layout direction={'column'} layout>
                 <Rect
                     height={this.barHeight()}
                     width={this.barWidth()}
                     fill={"#333333"}
-                    offset={[0,1]}
-                    radius={10}
-                />
-                <Rect
-                    height={this.currentHeightValue}//()=>this.currentDisplayValue()*this.barHeightFactor}
-                    width={this.barWidth()}
-                    fill={this.color}
-                    offset={[0,1]}
-                    radius={10}
-                />
+                    //offset={[0,1]}
+                    radius={10}>
+                    <Rect
+                        height={this.currentHeightValue}//()=>this.currentDisplayValue()*this.barHeightFactor}
+                        width={this.barWidth()}
+                        fill={this.color}
+                        //offset={[0,1]}
+                        radius={10}
+                    />
+                    <Text
+                        //x={5}
+                        //y={-20}
+                        text={()=>this.currentDisplayValue().toFixed(2)}
+                        fontFamily={'IntelOne Display Regular'}
+                        fill={()=>this.darkFont()?"#444444":"#ffffff"}
+                        //rotation={-90}
+                        offset={[-1,0]}
+                    />
+                </Rect>
+
                 <Text
-                    x={-10}
+                    //x={-10}
                     y={30}
                     text={this.label}
                     fontFamily={'IntelOne Display Regular'}
                     fill='#ffffff'
-                    offset={[-1,0]}
+                    //offset={[-1,0]}
                     rotation={45}
                 />
-                <Text
-                    x={5}
-                    y={-20}
-                    text={()=>this.currentDisplayValue().toFixed(2)}
-                    fontFamily={'IntelOne Display Regular'}
-                    fill={()=>this.darkFont()?"#444444":"#ffffff"}
-                    rotation={-90}
-                    offset={[-1,0]}
-                />
-            </Rect>
+            </Layout>
         );
     }
 
@@ -105,7 +106,7 @@ export class Bar extends Node {
             this.currentDisplayValue(0,0).to(this.value() , 1),
             this.currentHeightValue(0,0).to(this.value()*this.barHeightFactor , 1)
         )
-        console.log("Ending BarGraph animate");
+        console.log("Ending Bar animate");
     }
 
 }

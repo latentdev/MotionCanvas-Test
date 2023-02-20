@@ -1,5 +1,5 @@
 import {makeScene2D} from '@motion-canvas/2d/lib/scenes';
-import {Layout, Rect} from '@motion-canvas/2d/lib/components';
+import {Layout, Rect, Text} from '@motion-canvas/2d/lib/components';
 import {createRef, makeRef, range, useRandom} from '@motion-canvas/core/lib/utils';
 import {all, chain, loop, sequence} from '@motion-canvas/core/lib/flow';
 import { Bar } from '../components/Bar';
@@ -11,7 +11,7 @@ export default makeScene2D(function* (view) {
   const barRef = createRef<Bar>();
   var scoreColor = createSignal("#78bc61");
   view.add(
-    <Bar
+      <Bar
       ref={barRef}
       //x={i*(barWidth+gap)}
       color={scoreColor}
@@ -21,10 +21,45 @@ export default makeScene2D(function* (view) {
       barHeight={400}
       label={"Test"}
       darkFont={false}
-    />
+    /> 
+    // <Layout direction={'column'} gap={20} layout>
+    //   <Layout gap={20} layout>
+    //     <Rect
+    //       height={100}
+    //       width={200}
+    //       fill={"#ffffff"}>
+    //       <Text
+    //         //x={-10}
+    //         //y={30}
+    //         text={"Test"}
+    //         fontFamily={'IntelOne Display Regular'}
+    //         fill='#444444'
+    //       />
+    //     </Rect>
+    //     <Rect
+    //       height={100}
+    //       width={200}
+    //       fill={"#ffffff"}
+    //     />
+    //   </Layout>
+    //   <Layout gap={20} layout>
+    //     <Rect
+    //       height={100}
+    //       width={200}
+    //       fill={"#444444"}
+    //     />
+    //     <Rect
+    //       height={100}
+    //       width={200}
+    //       fill={"#444444"}
+    //     />
+
+    //   </Layout>
+    // </Layout>
   );
+
   yield* all(
-      barRef().animate(),
+      //barRef().animate(),
       // chain(
       //   scoreColor('#b2aa8e',0.5),
       //   scoreColor('#0c1b33',0.5),

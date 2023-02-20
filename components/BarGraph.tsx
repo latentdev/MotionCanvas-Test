@@ -12,12 +12,12 @@ import { Bar } from './Bar';
 import { tween } from '@motion-canvas/core/lib/tweening';
 
 export interface BarGraphProps extends NodeProps {
-    values?:SignalValue<[[string, number]]>;
+    values?:SignalValue<[string, number][]>;
     title?:SignalValue<string>;
 }    
 
 export class BarGraph extends Node { 
-    @initial([[]])
+    @initial([])
     @signal()
     public declare readonly values: SimpleSignal<[string, number][], this>;
 
@@ -58,7 +58,7 @@ export class BarGraph extends Node {
                     lineWidth={2}
                     lineCap="square"
                     cache
-                /> */}
+                    /> */}
                 <Rect
                     fill={"#777777"}
                     x={(this.values().length-1)*(barWidth+gap)/2*-1}
@@ -86,16 +86,13 @@ export class BarGraph extends Node {
     public *animate()
     {
         console.log("Beginning BarGraph animate");
-        yield* all(
-            yield* this.bars.map(x=>x.animate()),
-            // chain(
-            //     run(function*(){
-                    
-            //         console.log("Test");
-            //         //this.bars.map(x=>x.animate());
-            //     }),
-            // ),
-        );
+        yield* 
+            chain(
+                ...this.bars.map((bar,index)=> {
+                    console.log(`Animating bar ${index+1}`);
+                    return bar.animate();
+                }),
+            );
         // this.bars.forEach(function(bar){
         //     yield* bar.animate();
         //     console.log(bar);
